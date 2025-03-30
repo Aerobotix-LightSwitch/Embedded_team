@@ -5,10 +5,10 @@
 
 //=====================================================PINOUT_DEFINTION============================================================================ 
 
-#define LIGHTS_NUMBER 2
-const uint8_t lights_input_pins_def[LIGHTS_NUMBER] = {D5,D6};
-const uint8_t lights_output_pins_def[LIGHTS_NUMBER] = {D1, D2};
-uint8_t lights_output_pins_state[LIGHTS_NUMBER] = {0, 0};
+
+const uint8_t lights_input_pins_def[] = {D5,D6};
+const uint8_t lights_output_pins_def[] = {D1, D2};
+uint8_t lights_output_pins_state[] = {0, 0};
 
 
 //=====================================================MAC_ADDR_DEFINTION==============================================================================
@@ -51,7 +51,6 @@ void setup() {
     esp_now_set_self_role(ESP_NOW_ROLE_COMBO);
     esp_now_register_recv_cb(onRecv);
     esp_now_register_send_cb(onSend);
-
 
     esp_now_add_peer((unsigned char *)peer_behind, ESP_NOW_ROLE_COMBO, 1, NULL, 0);
     esp_now_add_peer((unsigned char *)peer_after, ESP_NOW_ROLE_COMBO, 1, NULL, 0);
