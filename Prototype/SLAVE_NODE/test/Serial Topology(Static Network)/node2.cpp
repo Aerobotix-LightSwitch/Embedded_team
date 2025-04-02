@@ -3,7 +3,7 @@
 #include <ESP8266WiFi.h>
 
 
-//=====================================================PINOUT_DEFINTION============================================================================ 
+//=====================================================PINOUT_DEFINTION============================================================================================================
 
 #define LIGHTS_NUMBER 2
 const uint8_t lights_input_pins_def[LIGHTS_NUMBER] = {0,2};
@@ -11,19 +11,40 @@ const uint8_t lights_output_pins_def[LIGHTS_NUMBER] = {1, D2};
 uint8_t lights_output_pins_state[LIGHTS_NUMBER] = {0, 0};
 
 
-//=====================================================MAC_ADDR_DEFINTION==============================================================================
+//=====================================================MAC_ADDR_DEFINTION==========================================================================================================
 
-const uint8_t  device_mac[] = {0x48,0x3F,0xDA,0x7B,0x2B,0x35};
-const uint8_t  peer_behind[] = {0xE8,0xDB,0x84,0xAE,0x3E,0x1C};
+uint8_t  device_mac[] = {0x48,0x3F,0xDA,0x7B,0x2B,0x35};
+uint8_t  node_behind[] = {0xE8,0xDB,0x84,0xAE,0x3E,0x1C};
+uint8_t * node_after = NULL;
 
-//uint8_t   peer_after[] = {};
+//============================================================================ESP_LightNet Protocol Header=========================================================================
 
+
+#define ESP_LIGHTNET_REQ_PING 0x01
+#define ESP_LIGHTNET_RES_PING 0x02
+
+#define ESP_LIGHTNET_REQ_LIGHT_UPDATE 0x03
+#define ESP_LIGHTNET_RES_LIGHT_UPDATE 0x04
+
+#define ESP_LIGHTNET_REQ_LIGHTS_STATUS 0x05
+#define ESP_LIGHTNET_RES_LIGHTS_STATUS 0x06
+
+#define ESP_LIGHTNET_PACKET_INITAL_LIFETIME 10
+typedef struct ESP_lightnet_packet{
+    uint8_t *  mac_source;
+    uint8_t *  mac_destination;
+    uint8_t identifier;
+    uint8_t lifetime;
+    uint8_t data_length;
+    uint8_t * data;
+
+}ESP_lightnet_packet;
 
 
 uint32_t timout_ms; 
 
 void onSend(uint8_t * macaddr,uint8_t status_code){
-    
+
 }
 
 void onRecv(uint8_t * macaddr,uint8_t * data,uint8_t len){
